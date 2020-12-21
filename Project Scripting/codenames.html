@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Codenames </title>
+
+    <!-- codenames game CSS -->
+    <link rel="stylesheet" href="codenames.css">
+
+    <!-- codenames game JS -->
+    <script src="game.js"></script>
+</head>
+<body>
+    <h1> Codenames </h1><h2 id="code"></h2>
+    <button id="create"> Create new game </button>
+    <form>
+        <label for="code2connect">
+            <input type="text" placeholder="Code" id="code2connect">
+        </label>
+        <button id="connect" type="button"> Connect </button>
+    </form>
+    <label>
+        <input type="checkbox" id="spymaster"> Make me spymaster
+    </label>
+    <h2 id="player"></h2>
+    <button id="end_turn"> End turn </button>
+    <div class="board" id="board"></div>
+<script>
+    const game = new Game();
+</script>
+</body>
+</html>
