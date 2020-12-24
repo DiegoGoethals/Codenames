@@ -11,8 +11,6 @@ class Game {
         document.getElementById("letter").onsubmit = function() {
             this.guess();
         }.bind(this);
-
-        this.start();
     }
 
     start() {
@@ -33,7 +31,7 @@ class Game {
                 this.mistakes_left = data["mistakes_left"];
             });
 
-        document.getElementById("word").innerHTML = this.word;
+        document.getElementById("word").innerText = this.word;
     }
 
     guess() {
