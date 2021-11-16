@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Hangman </title>
+
+    <!-- hangman game CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- hangman game JS -->
+    <script src="hangman.js"></script>
+</head>
+<body>
+<h1> Hangman </h1><h2 id="code"></h2>
+<form>
+    <label for="wordToGuess">
+        <input type="text" placeholder="Word" id="wordToGuess">
+    </label>
+    <button id="create"> Create new game </button>
+</form>
+    <form>
+    <label for="code2connect">
+        <input type="text" placeholder="Code" id="code2connect">
+    </label>
+    <button id="connect" type="button"> Connect </button>
+</form>
+<form>
+    <label for="letter">
+        <input type="text" placeholder="guess" id="letter">
+    </label>
+</form>
+<label>
+    <input type="checkbox" id="Hanger"> Make me hanger
+</label>
+<h1 id="word"></h1>
+<script>
+    const game = new Game();
+</script>
+</body>
+</html>
