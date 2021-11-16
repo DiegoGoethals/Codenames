@@ -32,3 +32,8 @@ body {
     background: black;
     color: aliceblue;
 }
+
+footer {
+    text-align: center;
+    color: gray;
+}

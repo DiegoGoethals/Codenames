@@ -2,8 +2,8 @@ class Game {
 
     constructor() {
 
-        // Automatically updates the game every second
-        setInterval(function(){this.status()}.bind(this), 1000);
+        // Automatically updates the game every 0.8 second
+        setInterval(function(){this.status()}.bind(this), 800);
 
         document.getElementById("spymaster").addEventListener("change", this.setTeamLeader.bind(this));
 
@@ -18,8 +18,6 @@ class Game {
         document.getElementById("end_turn").onclick = function () {
             this.end_turn();
         }.bind(this);
-
-        this.start();
     }
 
     // Fills the board so the game can be played
