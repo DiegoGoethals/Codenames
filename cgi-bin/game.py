@@ -10,9 +10,8 @@ class Game:
         input = open(words, 'r')
         dictionary = []
         line = input.readline()
-        while line:
+        while line := input.readline():
             dictionary.append(line.strip("\n"))
-            line = input.readline()
         input.close()
 
         # Determines which team will start the game and get 9 cards
