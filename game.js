@@ -7,17 +7,11 @@ class Game {
 
         document.getElementById("spymaster").addEventListener("change", this.setTeamLeader.bind(this));
 
-        document.getElementById("connect").onclick = function() {
-            this.connect();
-        }.bind(this);
+        document.getElementById("connect").addEventListener("click", this.connect.bind(this));
 
-        document.getElementById("create").onclick = function () {
-            this.start();
-        }.bind(this);
+        document.getElementById("create").addEventListener("click", this.start.bind(this));
 
-        document.getElementById("end_turn").onclick = function () {
-            this.end_turn();
-        }.bind(this);
+        document.getElementById("end_turn").addEventListener("click", this.end_turn.bind(this));
     }
 
     // Fills the board so the game can be played
@@ -33,31 +27,20 @@ class Game {
         this.selected = data["selected"];
 
         // Shows code on screen so people can use it to join the game
-        document.getElementById("code").innerHTML = "Share this code: " + this.code;
+        document.getElementById("code").innerHTML = `Share this code: ${this.code}`;
 
         // Shows current player on screen
-        const element = document.getElementById("player");
-        element.innerHTML = "Current player: " + this.current_player;
-        if (this.current_player === "red") {
-            element.style.cssText = "color: red;"
-        } else {
-            element.style.cssText = "color: blue;"
-        }
+        this.showCurrentPlayer();
 
         // Places words on the game board
         const board = this.words;
 
-        document.getElementById("board").innerHTML = board
-            .map(word => `<div
-                        class="word">
-                        ${word}
-                        </div>`
-            ).join("");
+        document.getElementById("board").innerHTML = board.map(word => `<div class="word">${word}</div>`).join("");
 
         // Makes all words clickable
-        document
-            .querySelectorAll(".word")
-            .forEach(word => word.addEventListener("click", this.move.bind(this)));
+        document.querySelectorAll(".word").forEach(word => 
+            word.addEventListener("click", this.move.bind(this))
+        );
     }
 
     // Adds word to selected words and shows the color of the word on the board
@@ -95,7 +78,7 @@ class Game {
             "code": document.getElementById("code2connect").value
         };
 
-        fetch("cgi-bin/current_state.cgi?data=" + JSON.stringify(data)).then(resp => resp.json())
+        fetch(`cgi-bin/current_state.cgi?data=${JSON.stringify(data)}`).then(resp => resp.json())
             .then(data => {
                 this.fill_board(data);
 
@@ -110,16 +93,19 @@ class Game {
 
     setWinner(winner) {
         if (winner) {
-            alert("Congratulations " + winner + " you won the game!");
+            alert(`Congratulations ${winner} you won the game!`);
             this.start();
         } else {
-            const element = document.getElementById("player");
-            element.innerHTML = "Current player: " + this.current_player;
-            if (this.current_player === "red") {
-                element.style.cssText = "color: red;"
-            } else {
-                element.style.cssText = "color: blue;"
-            }
+            this.showCurrentPlayer();
+        }
+    }
+
+    showCurrentPlayer() {
+        document.getElementById("player").innerHTML = `Current player: ${this.current_player}`;
+        if (this.current_player === "red") {
+            element.style.cssText = "color: red;";
+        } else {
+            element.style.cssText = "color: blue;";
         }
     }
 
@@ -146,7 +132,7 @@ class Game {
         };
 
         // Gets all properties needed to make a move from server and than makes a move
-        fetch("cgi-bin/move.cgi?data=" + JSON.stringify(data)).then(resp => resp.json())
+        fetch(`cgi-bin/move.cgi?data=${JSON.stringify(data)}`).then(resp => resp.json())
             .then(data => {
                 this.selected = data["selected"];
                 this.current_player = data["current_player"];
@@ -179,17 +165,11 @@ class Game {
         };
 
         // Gets data from server so the turn can be ended and ends turn
-        fetch("cgi-bin/end_turn.cgi?data=" + JSON.stringify(data)).then(resp => resp.json())
+        fetch(`cgi-bin/end_turn.cgi?data=${JSON.stringify(data)}`).then(resp => resp.json())
             .then(data => {
                 this.current_player = data["current_player"];
 
-                const element = document.getElementById("player");
-                element.innerHTML = "Current player: " + this.current_player;
-                if (this.current_player === "red") {
-                    element.style.cssText = "color: red;"
-                } else {
-                    element.style.cssText = "color: blue;"
-                }
+                this.showCurrentPlayer();
             });
     }
 
@@ -204,11 +184,11 @@ class Game {
                 .forEach(word => {
                     word.classList.add("spymaster");
                     if (this.blue.includes(word.innerText)) {
-                        word.style.cssText = "background-color: blue";
+                        word.style.cssText = "background-color: blue;";
                     } else if (this.red.includes(word.innerText)) {
-                        word.style.cssText = "background-color: red";
+                        word.style.cssText = "background-color: red;";
                     } else if(this.neutral.includes(word.innerText)) {
-                        word.style.cssText = "background-color: navajowhite;"
+                        word.style.cssText = "background-color: navajowhite;";
                     }
                 });
             checkbox.disabled = true;
@@ -222,7 +202,7 @@ class Game {
             "code": this.code
         };
 
-        fetch("cgi-bin/current_state.cgi?data=" + JSON.stringify(data)).then(resp => resp.json())
+        fetch(`cgi-bin/current_state.cgi?data=${JSON.stringify(data)}`).then(resp => resp.json())
             .then(data => {
                 this.winner = data["winner"];
                 this.selected = data["selected"];
@@ -230,13 +210,7 @@ class Game {
 
                 this.setWinner(this.winner);
 
-                const element = document.getElementById("player");
-                element.innerHTML = "Current player: " + this.current_player;
-                if (this.current_player === "red") {
-                    element.style.cssText = "color: red;"
-                } else {
-                    element.style.cssText = "color: blue;"
-                }
+                this.showCurrentPlayer();
 
                 document.querySelectorAll(".word")
                     .forEach(word => {

@@ -5,15 +5,15 @@ import string
 class Game:
 
     # Initializes the game
-    def __init__(self, woorden):
-        # Puts all words in a file so you can use them to set up the board
-        invoer = open(woorden, 'r')
-        woordenboek = []
-        regel = invoer.readline()
-        while regel:
-            woordenboek.append(regel.strip("\n"))
-            regel = invoer.readline()
-        invoer.close()
+    def __init__(self, words):
+        # Puts all words from a file into an array so you can use them to set up the board
+        input = open(words, 'r')
+        dictionary = []
+        line = input.readline()
+        while line:
+            dictionary.append(line.strip("\n"))
+            line = input.readline()
+        input.close()
 
         # Determines which team will start the game and get 9 cards
         self.current_player = random.choice(['red', 'blue'])
@@ -24,29 +24,29 @@ class Game:
         self.neutral = set()
         if self.current_player == 'red':
             while len(self.red_team) != 9:
-                self.red_team.add(random.choice(woordenboek))
+                self.red_team.add(random.choice(dictionary))
             while len(self.blue_team) != 8:
-                woord = random.choice(woordenboek)
-                if woord not in self.red_team:
-                    self.blue_team.add(woord)
+                word = random.choice(dictionary)
+                if word not in self.red_team:
+                    self.blue_team.add(word)
         else:
             while len(self.blue_team) != 9:
-                self.blue_team.add(random.choice(woordenboek))
+                self.blue_team.add(random.choice(dictionary))
             while len(self.red_team) != 8:
-                woord = random.choice(woordenboek)
-                if woord not in self.blue_team:
-                    self.red_team.add(woord)
+                word = random.choice(dictionary)
+                if word not in self.blue_team:
+                    self.red_team.add(word)
         while len(self.neutral) != 7:
-            woord = random.choice(woordenboek)
-            if woord not in self.red_team and woord not in self.blue_team:
-                self.neutral.add(woord)
+            word = random.choice(dictionary)
+            if word not in self.red_team and word not in self.blue_team:
+                self.neutral.add(word)
 
         # Sets forbidden word
         self.assassin = ""
         while len(self.assassin) == 0:
-            woord = random.choice(woordenboek)
-            if woord not in self.red_team and woord not in self.blue_team and woord not in self.neutral:
-                self.assassin = woord
+            word = random.choice(dictionary)
+            if word not in self.red_team and word not in self.blue_team and word not in self.neutral:
+                self.assassin = word
 
         # Creates a list to put all selected words in
         self.selected = []

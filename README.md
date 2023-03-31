@@ -1,2 +1,2 @@
-# Python_JS_Stuff
-All kinds of stuff related to Python and Javascript combined I do for fun
+# Codenames
+This is the code for the Codenames game we had to make in our first year at UGent
