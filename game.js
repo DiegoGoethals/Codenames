@@ -101,7 +101,8 @@ class Game {
     }
 
     showCurrentPlayer() {
-        document.getElementById("player").innerHTML = `Current player: ${this.current_player}`;
+        const element = document.getElementById("player");
+        element.innerHTML = `Current player: ${this.current_player}`;
         if (this.current_player === "red") {
             element.style.cssText = "color: red;";
         } else {

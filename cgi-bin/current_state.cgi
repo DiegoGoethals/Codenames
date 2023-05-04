@@ -2,7 +2,6 @@
 
 import json
 import cgi
-import os
 
 data = json.loads(cgi.FieldStorage().getvalue('data'))
 
