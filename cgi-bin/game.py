@@ -9,7 +9,6 @@ class Game:
         # Puts all words from a file into an array so you can use them to set up the board
         input = open(words, 'r')
         dictionary = []
-        line = input.readline()
         while line := input.readline():
             dictionary.append(line.strip("\n"))
         input.close()
